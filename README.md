@@ -9,7 +9,10 @@
 [![Whisper](https://img.shields.io/badge/ASR-OpenAI%20Whisper-412991?logo=openai&logoColor=white)](https://github.com/openai/whisper)
 [![Gemini](https://img.shields.io/badge/LLM-Gemini%202.5%20Flash-4285F4?logo=google&logoColor=white)](https://ai.google.dev/)
 [![SQLite](https://img.shields.io/badge/DB-SQLite-003B57?logo=sqlite&logoColor=white)](https://www.sqlite.org/)
+[![Live Demo](https://img.shields.io/badge/🚀%20Live%20Demo-Streamlit%20Cloud-FF4B4B?logo=streamlit&logoColor=white)](https://voice2query-qmrjvd.streamlit.app/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](#license)
+
+> 🌐 **Try it live:** [voice2query-qmrjvd.streamlit.app](https://voice2query-qmrjvd.streamlit.app/) — no install required.
 
 Voice2Query records a spoken question, transcribes it locally with Whisper, repairs schema-specific mishearings, generates a valid SQL query with Google Gemini, executes it against any SQLite database, and shows the results — table + auto-chart — in an interactive Streamlit dashboard.
 
@@ -18,6 +21,7 @@ Voice2Query records a spoken question, transcribes it locally with Whisper, repa
 ## 📋 Table of Contents
 
 - [About](#-about)
+- [Live Demo](#-live-demo)
 - [Features](#-features)
 - [Architecture](#-architecture)
 - [Tech Stack](#-tech-stack)
@@ -49,6 +53,24 @@ Voice2Query was built to make relational databases accessible to non-technical u
 6. **Streamlit displays** the transcript, the SQL, the result table, and an auto-chart.
 
 The pipeline is **fully generic** — drop in any `.db` file and it works without code changes. An optional pre-pipeline layer also accepts `.xlsx`, `.csv`, and `.json` and converts them on the fly.
+
+---
+
+## 🚀 Live Demo
+
+**The app is deployed on Streamlit Community Cloud — try it without installing anything:**
+
+### 👉 **[https://voice2query-qmrjvd.streamlit.app/](https://voice2query-qmrjvd.streamlit.app/)**
+
+What you can do on the live demo:
+- 🎤 Record a voice query directly in the browser (allow microphone access when prompted)
+- 📁 Upload an audio file (`.wav`, `.mp3`) if you don't have a mic
+- 🗄️ Use the bundled `school.db` or upload your own SQLite database
+- 📊 See the transcript, generated SQL, results table, and auto-chart in real time
+
+> 💡 **Tip:** The live app uses Whisper running on Streamlit's free tier, so the first transcription may take a few extra seconds while the model loads. Subsequent queries are much faster.
+
+> ⚠️ **Note:** The live demo shares a single Gemini API key across all visitors, so heavy concurrent traffic may hit the 15 RPM rate limit. If a query stalls, wait 30 seconds and retry — that's the rate limiter, not a bug.
 
 ---
 
@@ -308,7 +330,15 @@ api_key = os.getenv("GEMINI_API_KEY")
 
 ## ▶️ Usage
 
-### Launch the dashboard
+You have two ways to use Voice2Query:
+
+### Option A — Use the live demo (zero setup)
+
+Just open **[voice2query-qmrjvd.streamlit.app](https://voice2query-qmrjvd.streamlit.app/)** in any modern browser. Skip steps 1–3 below and go straight to "How to use the dashboard."
+
+### Option B — Run locally
+
+Follow [Installation](#-installation) and [Configuration](#-configuration), then launch the dashboard:
 
 ```cmd
 streamlit run app.py
@@ -475,5 +505,7 @@ MIT License — see [LICENSE](LICENSE) for details.
 
 **Built with ❤️ in Naples**
 Università degli Studi di Napoli Federico II · A.Y. 2025/2026
+
+🌐 Live at **[voice2query-qmrjvd.streamlit.app](https://voice2query-qmrjvd.streamlit.app/)**
 
 </div>
