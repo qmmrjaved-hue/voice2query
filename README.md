@@ -130,7 +130,6 @@ The system is split into two groups: an **optional pre-pipeline ingestion layer*
 └─────────────────────────────────────────────────────────────┘
 ```
 
-A full architecture diagram is available in `assets/flowchart.png`.
 
 ---
 
