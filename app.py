@@ -537,7 +537,7 @@ def upload_page():
 
         db_files = st.file_uploader(
             "Upload database file(s)",
-            type=["db", "xlsx", "xls", "csv"],
+            type=["db", "xlsx", "xls", "csv","json"],
             accept_multiple_files=True,
             help="Upload one or more files. Multiple files are merged into one database.",
             key="db_uploader",
