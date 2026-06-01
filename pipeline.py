@@ -88,7 +88,6 @@ def run(
         state["corrected"] = text
 
     else:
-        import audio_input
         import transcribe as transcribe_module
         import error_correction
 
@@ -96,6 +95,7 @@ def run(
         # Stage 1 — Audio input                                               #
         # ------------------------------------------------------------------ #
         if audio_path is None:
+            import audio_input
             try:
                 print("\n[pipeline] Stage 1/5 — Recording audio ...")
                 state["audio_path"] = audio_input.record(
