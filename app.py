@@ -269,6 +269,7 @@ _DEFAULTS = {
     "result": None,
     "_active_audio": None,
     "_active_audio_ext": ".wav",
+    "_query_counter": 0,
 }
 for _k, _v in _DEFAULTS.items():
     if _k not in st.session_state:
@@ -684,8 +685,13 @@ def query_page():
 
     record_tab, upload_tab = st.tabs(["Record", "Upload File"])
 
+    _qc = st.session_state._query_counter
+
     with record_tab:
-        recorded = st.audio_input(label="Record your question")
+        recorded = st.audio_input(
+            label="Record your question",
+            key=f"audio_input_{_qc}",
+        )
         if recorded is not None:
             audio_bytes = recorded.read()
             if audio_bytes:
@@ -696,7 +702,7 @@ def query_page():
         uploaded_audio = st.file_uploader(
             "Upload audio file",
             type=["wav", "mp3"],
-            key="query_audio_upload",
+            key=f"query_audio_upload_{_qc}",
         )
         if uploaded_audio is not None:
             audio_bytes = uploaded_audio.read()
@@ -730,6 +736,8 @@ def query_page():
                 }
 
         st.session_state.result = result
+        st.session_state._active_audio = None
+        st.session_state._query_counter += 1
 
         if result.get("sql") and not result.get("error"):
             st.session_state.history.append(
