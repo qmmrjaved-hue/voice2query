@@ -265,7 +265,7 @@ sudo apt install ffmpeg
 ### 1. Clone the repository
 
 ```cmd
-git clone https://github.com/<your-username>/voice2query.git
+git clone https://github.com/qmmrjaved-hue/voice2query.git
 cd voice2query
 ```
 
