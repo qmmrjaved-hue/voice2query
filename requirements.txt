@@ -63,3 +63,4 @@ watchdog==6.0.0
 websockets==16.0
 whisper==1.1.10
 openpyxl
+PortAudio
