@@ -335,7 +335,7 @@ def _stage_html(result: dict) -> str:
 def _footer():
     st.markdown(
         '<div class="vq-footer">'
-        "Voice2Query · Data Science · DIETI · "
+        "©Qamar Javed . Voice2Query · Data Science · DIETI · "
         "University of Naples Federico II · 2025/2026"
         "</div>",
         unsafe_allow_html=True,
