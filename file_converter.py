@@ -106,8 +106,45 @@ def _read_excel(file_bytes: bytes) -> dict:
 
 
 def _read_json(file_bytes: bytes, filename: str) -> dict:
-    df = pd.read_json(io.BytesIO(file_bytes))
-    return {_safe_table_name(filename): df}
+    import json
+
+    try:
+        data = json.loads(file_bytes)
+    except json.JSONDecodeError as e:
+        raise RuntimeError(f"Invalid JSON: {e}") from e
+
+    # Multi-table: top-level dict whose values are all lists
+    # e.g. {"airports": [...], "routes": [...]}
+    if (
+        isinstance(data, dict)
+        and len(data) > 1
+        and all(isinstance(v, list) for v in data.values())
+    ):
+        result = {}
+        for key, val in data.items():
+            tbl = _safe_table_name(key)
+            result[tbl] = _normalise(val)
+        return result
+
+    # Single-key wrapper: {"airports": [...]}  →  unwrap and treat as one table
+    if isinstance(data, dict) and len(data) == 1:
+        inner = next(iter(data.values()))
+        if isinstance(inner, (list, dict)):
+            data = inner
+
+    return {_safe_table_name(filename): _normalise(data)}
+
+
+def _normalise(data) -> pd.DataFrame:
+    """Turn any common JSON shape into a flat DataFrame."""
+    if isinstance(data, list):
+        return pd.json_normalize(data) if data else pd.DataFrame()
+    if isinstance(data, dict):
+        # Dict of records: {"LAX": {"name": "Los Angeles", ...}, ...}
+        df = pd.DataFrame.from_dict(data, orient="index")
+        df.index.name = "id"
+        return df.reset_index()
+    return pd.DataFrame([{"value": str(data)}])
 
 
 def _write_sqlite(df_map: dict, db_path: str) -> None:
