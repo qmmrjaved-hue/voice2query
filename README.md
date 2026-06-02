@@ -477,7 +477,7 @@ Università degli Studi di Napoli Federico II (UNINA)
 
 ## 🙏 Acknowledgments
 
-This project was developed as the final assignment for **Fundamentals of Programming** under the supervision of:
+This project was developed as the final assignment for **Fundamentals of Programming and Data Management** under the supervision of:
 
 **Prof. Vincenzo Moscato**
 Università degli Studi di Napoli Federico II
